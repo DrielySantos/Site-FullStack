@@ -1,41 +1,17 @@
 <?php
 
-/**
- * Importa as configurações do site:
- * Referências:
- *  • https://www.w3schools.com/php/php_includes.asp
- **/
 require('includes/config.php');
 
-// Se usuário já está logado...
 if (isset($_COOKIE[$c['ucookie']]))
 
-  // Extrai os dados do usuário:
-  $user = json_decode($_COOKIE[$c['ucookie']], true);
+$user = json_decode($_COOKIE[$c['ucookie']], true);
 
-/**
- * Obtém e filtra o nome da página da URL:
- * Referências:
- *  • https://www.w3schools.com/jsref/jsref_trim_string.asp
- *  • https://www.php.net/manual/en/function.urldecode.php
- *  • https://www.w3schools.com/php/func_string_htmlentities.asp
- *  • https://www.w3schools.com/php/php_superglobals.asp
- *  • https://www.w3schools.com/php/php_superglobals_server.asp
- **/
 $route = trim(htmlentities($_SERVER['QUERY_STRING']));
 
-// Se não solicitou uma rota, usa a rota da página inicial:
 if ($route == '') $route = 'home';
 
-// Remove coisas depois da "/" caso exista:
 $route = explode('/', $route)[0];
 
-/**
- * Monta todos os caminhos dos arquivos da página em uma coleção:
- * Referências:
- *  • https://www.w3schools.com/php/php_arrays.asp
- *  • https://www.w3schools.com/php/func_array.asp
- **/
 $page = array(
   'php' => "pages/{$route}/index.php",
   'css' => "pages/{$route}/index.css",
@@ -75,7 +51,7 @@ for ($i = 0; $i < count($s); $i++) :
   $fsocial .= <<<HTML
     
 <a href="{$s[$i]['link']}" target="_blank" title="Acesse nosso {$s[$i]['name']}">
-  <i class="fa-brands {$s[$i]['icon']} fa-fw"></i>
+<i class="fa-brands {$s[$i]['icon']} fa-fw"></i>
   <span>{$s[$i]['name']}</span>
 </a>
 HTML;
@@ -106,7 +82,7 @@ $fsocial .= '
 
     <header>
       <a href="/" title="Página inicial">
-        <?php echo $c['sitelogo'] ?>
+        
       </a>
       <h1>
         <?php echo $c['sitename'] ?>
@@ -172,7 +148,6 @@ $fsocial .= '
           </a>
         <?php endif; ?>
         <hr>
-        <a href="/?search" title="Procurar no site"><i class="fa-solid fa-magnifying-glass fa-fw"></i><span>Procurar</span></a>
         <hr>
         <a href="/?contacts" title="Faça contato"><i class="fa-solid fa-comments fa-fw"></i><span>Contatos</span></a>
         <a href="/?site" title="Sobre o site..."><i class="fa-solid fa-globe fa-fw"></i><span>Sobre o site</span></a>
